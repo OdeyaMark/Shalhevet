@@ -88,6 +88,20 @@ const mockUsers = [
 
 type User = typeof mockUsers[0]
 
+async function fetchData<T>(url: string): Promise<T> {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data: T = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
+  }
+}
+
 const UsersDashboard = () => {
   const [users, setUsers] = useState(mockUsers);
   const [filteredUsers, setFilteredUsers] = useState(mockUsers);
@@ -102,6 +116,7 @@ const UsersDashboard = () => {
 
   // Get unique years from join dates
   const getAvailableYears = () => {
+    
     const years = mockUsers.map(user => {
       const dateParts = user.joinDate.split('/');
       return dateParts[2]; // Year is the third part
@@ -111,7 +126,8 @@ const UsersDashboard = () => {
 
   // Filter and search logic
   useEffect(() => {
-    let filtered = users.filter(user => {
+    
+    const filtered = users.filter(user => {
       const matchesSearch = user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            user.email.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesChavruta = chavrutaFilter === 'all' || 
@@ -145,13 +161,13 @@ const UsersDashboard = () => {
     setPopupType(null);
   };
 
-  const handleUserAction = (action:string) => {
-    if (selectedUser) {
-      console.log(`Performing ${action} on user:`, selectedUser);
-      // Here you would integrate with your Wix CMS API
-      closePopup();
-    }
-  };
+  // const handleUserAction = (action:string) => {
+  //   if (selectedUser) {
+  //     console.log(`Performing ${action} on user:`, selectedUser);
+  //     // Here you would integrate with your Wix CMS API
+  //     closePopup();
+  //   }
+  // };
 
   
 
@@ -349,9 +365,9 @@ const UsersDashboard = () => {
       </div>
 
       {/* Popup Modal */}
-      {popupType === 'view' && selectedUser && (
+      {/* {popupType === 'view' && selectedUser && (
         <DetailsPopup user={selectedUser} onClose={closePopup} />
-      )}
+      )} */}
       {/* <UserProfilePopup 
         user={selectedUser} 
         onClose={closePopup} 

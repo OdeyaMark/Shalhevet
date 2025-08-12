@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { Search, User,Contact, Phone } from 'lucide-react';
+import { Search, User,Contact, Phone, MessageCircle } from 'lucide-react';
 
 // Types
 interface User {

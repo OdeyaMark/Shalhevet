@@ -51,11 +51,11 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ className = '' }) => {
-  const router = useRouter();
+  
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
+  const pathname = usePathname();
   const isActivePath = (href: string): boolean => {
-    const pathname = usePathname();
     return pathname === href || pathname.startsWith(`${href}/`);
   };
 

@@ -1,4 +1,4 @@
-import { Car, Plus } from "lucide-react"
+
 
 
 const DetailsCard = ({ contact }) => {
